@@ -1,5 +1,6 @@
 .row {
-	margin-left: 20px;
+	margin-top: 10px;
+	margin-left: 50px;
 	color: white;
 }
 .row_posters {
@@ -17,7 +18,7 @@
 .poster {
 	object-fit: contain;
 	width: 100%;
-	max-height: 140px;
+	max-height: 125px;
 	margin-right: 12px;
 	transition: transform 450ms;
 }
@@ -28,5 +29,5 @@
 }
 
 .large_poster {
-	max-height: 370px;
+	max-height: 330px;
 }

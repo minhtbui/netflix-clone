@@ -2,21 +2,20 @@ import React from 'react';
 import Row from './Row';
 import req from './requests';
 import Banner from './Banner';
-import './Row.css';
+import Nav from './Nav';
 import './App.css';
-import './Banner.css';
 
 function App() {
 	return (
 		<div className='App'>
-			{/* NAV BAR */}
+			<Nav />
 			<Banner />
 
 			{/* ROW CATEGORIES */}
 			<Row title='Trending Now' fetchURL={req.fetchTrending} />
 
 			<Row
-				title='NETFLIX ORIGINAL'
+				title='Netflix Originals'
 				fetchURL={req.fetchNetflixOriginal}
 				isLargePoster
 			/>

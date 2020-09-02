@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { img_url } from './requests';
+import './Row.css';
 
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]);
@@ -19,14 +20,16 @@ function Row({ title, fetchURL, isLargePoster }) {
 
 	return (
 		<div className='row'>
-			<h2>{title}</h2>
+			<h3>{title}</h3>
 			<div className='row_posters'>
 				{movies.map((movie) => (
 					<img
 						key={movie.id}
 						className={`poster ${isLargePoster && 'large_poster'}`}
 						src={`${img_url}${
-							isLargePoster ? movie.poster_path : movie.backdrop_path
+							isLargePoster
+								? movie.poster_path
+								: movie?.backdrop_path || movie?.poster_path
 						}`}
 						alt={movie.title}
 					/>

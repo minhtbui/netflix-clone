@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import req, { img_url } from './requests';
+import './Banner.css';
 
 function Banner() {
 	const [movie, setMovie] = useState([]);
@@ -24,14 +25,13 @@ function Banner() {
 		<header
 			className='banner'
 			style={{
-				backgroundSize: 'cover',
 				backgroundImage: `url(${img_url}${movie.backdrop_path})`,
 			}}>
 			<div className='banner_contents'>
 				<h1 className='banner_title'>
 					{movie?.title || movie?.name || movie?.original_name}
 				</h1>
-				<div className='banner_button'>
+				<div className='banner_buttons'>
 					<button className='banner_button'>Play</button>
 					<button className='banner_button'>My List</button>
 				</div>
