@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import baseURL from './axios';
+import axios from './axios';
+import { img_url } from './requests';
 
-const img_url = 'https://image.tmdb.org/t/p/original/';
-
-function Row({ title, fetchURL }) {
+function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]);
 
 	//* update state after render DOM on a specific condition by snippet of code (fetch url)
 	useEffect(() => {
 		async function fetchData() {
-			const request = await baseURL.get(fetchURL);
+			const request = await axios.get(fetchURL);
 			setMovies(request.data.results);
 			return request;
 		}
@@ -21,13 +20,15 @@ function Row({ title, fetchURL }) {
 	return (
 		<div className='row'>
 			<h2>{title}</h2>
-
-			<div className='row-posters'>
+			<div className='row_posters'>
 				{movies.map((movie) => (
 					<img
-						src={img_url + movie.backdrop_path}
+						key={movie.id}
+						className={`poster ${isLargePoster && 'large_poster'}`}
+						src={`${img_url}${
+							isLargePoster ? movie.poster_path : movie.backdrop_path
+						}`}
 						alt={movie.title}
-						height='100px'
 					/>
 				))}
 			</div>
