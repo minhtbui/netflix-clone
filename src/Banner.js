@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import req, { img_url } from './requests';
-import './Banner.css';
 
 function Banner() {
 	const [movie, setMovie] = useState([]);
@@ -21,21 +20,41 @@ function Banner() {
 		return str?.length > n ? str.substr(0, n - 1) + '...' : str;
 	}
 
+	function yearRelease(str) {
+		return str ? str.substr(0, 4) : str;
+	}
+
 	return (
 		<header
 			className='banner'
 			style={{
-				backgroundImage: `url(${img_url}${movie.backdrop_path})`,
+				backgroundImage: `
+					radial-gradient(
+						circle,
+						rgba(0, 0, 0, 0) 50%,
+						rgba(0, 0, 0, 0.5) 70%,
+						rgba(0, 0, 0, 1) 90%
+					), 
+					url(${img_url}${movie.backdrop_path})`,
 			}}>
 			<div className='banner_contents'>
 				<h1 className='banner_title'>
 					{movie?.title || movie?.name || movie?.original_name}
 				</h1>
+				<h3>{yearRelease(movie.first_air_date)}</h3>
+				<p className='banner_desc'>{truncate(movie.overview, 150)}</p>
 				<div className='banner_buttons'>
-					<button className='banner_button'>Play</button>
-					<button className='banner_button'>My List</button>
+					<button className='banner_button'>
+						<i class='fab fa-google-play'></i> Play
+					</button>
+					<button className='banner_button'>
+						<i class='fas fa-plus'></i> My List
+					</button>
+					<div className='banner_thump'>
+						<i class='far fa-thumbs-up'></i>
+						<i class='far fa-thumbs-down'></i>
+					</div>
 				</div>
-				<h1 className='banner_desc'>{truncate(movie.overview, 150)}</h1>
 			</div>
 			<div className='banner--fadeBottom' />
 		</header>
