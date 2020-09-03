@@ -3,6 +3,7 @@
 }
 .App {
 	background-color: #111;
+	z-index: -1;
 }
 
 /* SCROLL BAR DESIGN */

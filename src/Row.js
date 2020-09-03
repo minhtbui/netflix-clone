@@ -23,7 +23,7 @@ function Row({ title, fetchURL, isLargePoster }) {
 	// react-youtube template for opts
 	const opts = {
 		height: '340',
-		width: '50%',
+		width: '60%',
 		playerVars: {
 			// https://developers.google.com/youtube/player_parameters
 			autoplay: 1, //enable auto play
@@ -60,7 +60,7 @@ function Row({ title, fetchURL, isLargePoster }) {
 	};
 	return (
 		<div className='row'>
-			<h3>{title}</h3>
+			<h3 className='row_header'>{title}</h3>
 			<div className='row_posters'>
 				{movies.map((movie) => (
 					<img

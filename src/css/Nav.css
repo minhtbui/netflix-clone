@@ -3,7 +3,7 @@
 	width: 100%;
 	padding: 20px;
 	height: 30px;
-	z-index: 1; /* stack on top layer */
+	z-index: 7; /* stack on top layer */
 	top: 0;
 
 	/* ANIMATION */
