@@ -45,14 +45,14 @@ function Banner() {
 				<p className='banner_desc'>{truncate(movie.overview, 150)}</p>
 				<div className='banner_buttons'>
 					<button className='banner_button'>
-						<i class='fab fa-google-play'></i> Play
+						<i className='fab fa-google-play'></i> Play
 					</button>
 					<button className='banner_button'>
-						<i class='fas fa-plus'></i> My List
+						<i className='fas fa-plus'></i> My List
 					</button>
 					<div className='banner_thump'>
-						<i class='far fa-thumbs-up'></i>
-						<i class='far fa-thumbs-down'></i>
+						<i className='far fa-thumbs-up'></i>
+						<i className='far fa-thumbs-down'></i>
 					</div>
 				</div>
 			</div>

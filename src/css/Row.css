@@ -1,9 +1,12 @@
 .row {
 	position: relative;
 	z-index: 0;
-	margin: 10px 0 0 55px;
 	color: white;
 }
+.row_header {
+	padding: 10px 0 0 55px;
+}
+
 .row_posters {
 	display: flex;
 	overflow-y: hidden;
@@ -13,6 +16,9 @@
 /* push poster to the left*/
 .row_posters:hover .poster {
 	transform: translateX(-25%);
+}
+.row_posters:hover .large_poster {
+	transform: translateX(-10%);
 }
 /*hidden scrollbar slide*/
 .row_posters::-webkit-scrollbar {
@@ -30,9 +36,6 @@
 	transition-delay: 0ms;
 	z-index: 5;
 }
-.large_poster {
-	max-height: 330px;
-}
 .poster:hover {
 	cursor: pointer;
 	transform: scale(1.5) !important;
@@ -41,4 +44,13 @@
 	transform: translateX(25%);
 }
 
+.large_poster {
+	max-height: 330px;
+}
+.large_poster:hover {
+	transform: scale(1.2) !important;
+}
+.poster:hover ~ .large_poster {
+	transform: translateX(10%);
+}
 /* POSTER POP UP */
