@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
-import { img_url, reqType } from './requests';
+import { img_url } from './requests';
 import YouTube from 'react-youtube';
+import movieTrailer from 'movie-trailer';
 
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]); // state for movies
-	const [trailerID, setTrailerID] = useState(''); // state for trailers
+	const [trailerID, setTrailerUrl] = useState(''); // state for trailers
 
 	//* update state after render DOM on a specific condition by snippet of code (fetch url)
 	useEffect(() => {
@@ -18,23 +19,6 @@ function Row({ title, fetchURL, isLargePoster }) {
 		//* if [], run once when the row loads, and don't run again
 		//* if [fetchURL], useEffect Hook will keep rerendering to update
 	}, [fetchURL]);
-
-	const handleClick = (movie) => {
-		if (trailerID) {
-			setTrailerID('');
-		} else {
-			async function fetchVideo() {
-				if (fetchURL.match('movie')) {
-					const request = await axios.get(reqType('movie', movie.id));
-					setTrailerID(request.data.results[0].key);
-				} else if (fetchURL.match('tv')) {
-					const request = await axios.get(reqType('tv', movie.id));
-					setTrailerID(request.data.results[0].key);
-				}
-			}
-			fetchVideo();
-		}
-	};
 
 	// react-youtube template for opts
 	const opts = {
@@ -49,6 +33,30 @@ function Row({ title, fetchURL, isLargePoster }) {
 			rel: 0, // disable related videos
 			modestbranding: 1, //youtube logo
 		},
+	};
+
+	// handle click on movie poster
+	const handleClick = (movie) => {
+		if (trailerID) {
+			setTrailerUrl('');
+		} else {
+			//* movieTrailer module from npm packet search on Youtube by the name of poster
+			//* if not found, return empty as ''
+			movieTrailer(
+				movie?.title ||
+					movie?.original_title ||
+					movie?.name ||
+					movie?.original_name ||
+					'',
+			)
+				.then((url) => {
+					//* URLSearchParams - Returns an array of key, value pairs for every entry in the search params.
+					// https://www.youtube.com/watch?v=ewDSeyWve8M
+					const trailerID = new URLSearchParams(new URL(url).search);
+					setTrailerUrl(trailerID.get('v'));
+				})
+				.catch((error) => console.log(error));
+		}
 	};
 
 	return (
