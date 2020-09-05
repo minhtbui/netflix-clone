@@ -6,7 +6,8 @@ import PosterInfo from './PosterInfo';
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]); // state for movies
 	const [trailerID, setTrailerID] = useState(''); // state for trailers
-
+	const [movieInfo, setMovieInfo] = useState('');
+	const [isActive, setActive] = useState(false);
 	//* update state after render DOM on a specific condition by snippet of code (fetch url)
 	useEffect(() => {
 		async function fetchData() {
@@ -20,31 +21,40 @@ function Row({ title, fetchURL, isLargePoster }) {
 	}, [fetchURL]);
 
 	const handleClick = (movie) => {
-		if (trailerID) {
-			setTrailerID('');
-		} else {
-			async function fetchVideo() {
-				if (fetchURL.match('movie')) {
-					const request = await axios.get(reqType('movie', movie.id));
-					setTrailerID(request.data.results[0].key);
-				} else if (fetchURL.match('tv')) {
-					const request = await axios.get(reqType('tv', movie.id));
-					setTrailerID(request.data.results[0].key);
-				}
+		(isActive && movie?.title === movieInfo.title) ||
+		(isActive && movie?.name === movieInfo.title)
+			? setActive(false)
+			: setActive(true);
+
+		setTrailerID(''); // clear trailerID state
+		setMovieInfo(''); // clear MovieInfo state
+		// get trailer id API by matching type movie/tv series
+		async function fetchVideo() {
+			if (fetchURL.match('movie')) {
+				const request = await axios.get(reqType('movie', movie.id));
+				setTrailerID(request.data.results[0].key);
+			} else if (fetchURL.match('tv')) {
+				const request = await axios.get(reqType('tv', movie.id));
+				setTrailerID(request.data.results[0]?.key);
 			}
-			fetchVideo();
+		}
+		fetchVideo();
+		getInfo(movie);
+	};
+	const getInfo = (movie) => {
+		if (movie) {
+			const desc = {
+				title: movie?.title || movie?.name || '',
+				year:
+					yearRelease(movie.first_air_date) ||
+					yearRelease(movie.release_date) ||
+					'',
+				desc: movie?.overview || '',
+				poster: movie?.backdrop_path || '',
+			};
+			setMovieInfo(desc);
 		}
 	};
-	// const getDesc = (movie) => {
-	// 	if (movie) {
-	// 		const desc = {
-	// 			name: movie?.title || movie?.name || '',
-	// 			year: yearRelease(movie.first_air_date) || '',
-	// 			desc: movie?.overview || '',
-	// 		};
-	// 		return (movieDesc = this.desc);
-	// 	}
-	// };
 	return (
 		<div className='row'>
 			<h3 className='row_header'>{title}</h3>
@@ -63,7 +73,17 @@ function Row({ title, fetchURL, isLargePoster }) {
 					/>
 				))}
 			</div>
-			<PosterInfo trailerID={`${trailerID}`} />
+			{isActive && (
+				<PosterInfo
+					title={movieInfo.title}
+					year={movieInfo.year}
+					desc={movieInfo.desc}
+					creator='Minh Tu Bui 😎'
+					backdrop={movieInfo.poster}
+					trailerID={trailerID}
+					isActive
+				/>
+			)}
 		</div>
 	);
 }

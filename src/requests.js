@@ -22,8 +22,8 @@ export const reqType = (type, id) => {
 
 // react-youtube template for opts
 export const opts = {
-	height: '340',
-	width: '60%',
+	height: '450',
+	width: '700',
 	playerVars: {
 		// https://developers.google.com/youtube/player_parameters
 		autoplay: 1, //enable auto play

@@ -7,7 +7,7 @@ import './css/App.scss';
 import './css/Nav.scss';
 import './css/Banner.scss';
 import './css/Row.scss';
-
+import './css/PosterInfo.scss';
 function App() {
 	return (
 		<div className='App'>
