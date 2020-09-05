@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
-import { img_url, reqType } from './requests';
-import YouTube from 'react-youtube';
+import { img_url, reqType, yearRelease } from './requests';
+import PosterInfo from './PosterInfo';
 
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]); // state for movies
@@ -35,22 +35,16 @@ function Row({ title, fetchURL, isLargePoster }) {
 			fetchVideo();
 		}
 	};
-
-	// react-youtube template for opts
-	const opts = {
-		height: '340',
-		width: '60%',
-		playerVars: {
-			// https://developers.google.com/youtube/player_parameters
-			autoplay: 1, //enable auto play
-			controls: 0,
-			disablekb: 1, //disable keyboard controls
-			iv_load_policy: 3, //disable annotation
-			rel: 0, // disable related videos
-			modestbranding: 1, //youtube logo
-		},
-	};
-
+	// const getDesc = (movie) => {
+	// 	if (movie) {
+	// 		const desc = {
+	// 			name: movie?.title || movie?.name || '',
+	// 			year: yearRelease(movie.first_air_date) || '',
+	// 			desc: movie?.overview || '',
+	// 		};
+	// 		return (movieDesc = this.desc);
+	// 	}
+	// };
 	return (
 		<div className='row'>
 			<h3 className='row_header'>{title}</h3>
@@ -69,10 +63,7 @@ function Row({ title, fetchURL, isLargePoster }) {
 					/>
 				))}
 			</div>
-
-			{trailerID && (
-				<YouTube videoId={trailerID} opts={opts} className='poster_info' />
-			)}
+			<PosterInfo trailerID={`${trailerID}`} />
 		</div>
 	);
 }

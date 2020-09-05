@@ -57,5 +57,11 @@
 }
 .poster_info {
 	display: flex;
-	justify-content: flex-end;
+
+	.poster_videos {
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+		height: 100%;
+	}
 }
