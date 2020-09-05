@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import req, { img_url } from './requests';
 
+export function yearRelease(str) {
+	return str ? str.substr(0, 4) : str;
+}
+
 function Banner() {
 	const [movie, setMovie] = useState([]);
 
@@ -18,10 +22,6 @@ function Banner() {
 	//string.length > NUMBER? string substract from 0 to NUMBER - 1 : strings
 	function truncate(str, n) {
 		return str?.length > n ? str.substr(0, n - 1) + '...' : str;
-	}
-
-	function yearRelease(str) {
-		return str ? str.substr(0, 4) : str;
 	}
 
 	return (

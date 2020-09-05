@@ -3,10 +3,10 @@ import Row from './Row';
 import req from './requests';
 import Banner from './Banner';
 import Nav from './Nav';
-import './css/App.css';
-import './css/Nav.css';
-import './css/Banner.css';
-import './css/Row.css';
+import './css/App.scss';
+import './css/Nav.scss';
+import './css/Banner.scss';
+import './css/Row.scss';
 
 function App() {
 	return (
