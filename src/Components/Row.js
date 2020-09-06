@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from './axios';
 import { img_url, reqType, yearRelease } from './requests';
 import PosterInfo from './PosterInfo';
+import Slider from 'react-slick';
 
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]); // state for movies

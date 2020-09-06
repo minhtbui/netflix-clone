@@ -35,6 +35,14 @@ export const opts = {
 	},
 };
 
+export const settings = {
+	dot: true,
+	infinite: false,
+	speed: 500,
+	slidesToShow: 10,
+	slidesToScroll: 5,
+};
+
 export function truncate(str, n) {
 	return str?.length > n ? str.substr(0, n - 1) + '...' : str;
 }

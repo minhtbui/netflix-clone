@@ -1,0 +1,25 @@
+.row-button {
+	background: rgba(20, 20, 20, 0.5);
+	display: flex;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	border: 0;
+	width: 4%;
+	text-align: center;
+	z-index: 4;
+	justify-content: center;
+	padding: 65px 0 30px;
+	cursor: pointer;
+	&-left {
+		left: 0px;
+	}
+	&-right {
+		right: 0;
+	}
+	span {
+		height: auto;
+		align-self: center;
+		font-size: 4vw;
+	}
+}

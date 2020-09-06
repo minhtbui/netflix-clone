@@ -1,13 +1,17 @@
 import React from 'react';
-import Row from './Row';
-import req from './requests';
-import Banner from './Banner';
-import Nav from './Nav';
+import Row from './Components/Row';
+import req from './Components/requests';
+import Banner from './Components/Banner';
+import Nav from './Components/Nav';
 import './css/App.scss';
 import './css/Nav.scss';
 import './css/Banner.scss';
 import './css/Row.scss';
 import './css/PosterInfo.scss';
+import './css/RowButton.scss';
+// import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
+
 function App() {
 	return (
 		<div className='App'>
