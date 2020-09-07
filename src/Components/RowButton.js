@@ -1,14 +1,15 @@
 import React from 'react';
 
-function RowButton({ onClick, type, position }) {
+const RowButton = ({ onClick, direction }) => {
 	return (
-		<div className='row-buttons'>
-			<span
-				className={`row-button row-button-${position} fas fa-angle-left`}></span>
-			<span
-				className={`row-button row-button-${position} fas fa-angle-right`}></span>
+		<div className={`row-button row-button--${direction}`} onClick={onClick}>
+			{direction === 'right' ? (
+				<span className={` fas fa-angle-right`}></span>
+			) : (
+				<span className={` fas fa-angle-left`}></span>
+			)}
 		</div>
 	);
-}
+};
 
 export default RowButton;

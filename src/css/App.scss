@@ -2,9 +2,10 @@
 	margin: 0;
 }
 .App {
+	position: relative;
 	background-color: #111;
-	z-index: -1;
 	user-select: none;
+	z-index: 0;
 }
 
 /* SCROLL BAR DESIGN */

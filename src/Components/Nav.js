@@ -23,7 +23,7 @@ function Nav() {
 				alt='Netflix Logo'
 			/>
 			<div className='nav_menu'>
-				<span className='nav_home selected'>Home</span>
+				<span className='nav_home'>Home</span>
 				<span className='nav_tv'>Tv Shows</span>
 				<span className='nav_movie'>Movies</span>
 				<span className='nav_lastest'>Latest</span>

@@ -9,8 +9,8 @@ import './css/Banner.scss';
 import './css/Row.scss';
 import './css/PosterInfo.scss';
 import './css/RowButton.scss';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
 	return (

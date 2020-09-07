@@ -37,10 +37,13 @@ export const opts = {
 
 export const settings = {
 	dot: true,
-	infinite: false,
-	speed: 500,
-	slidesToShow: 10,
+	infinite: true,
+	speed: 200,
+	slidesToShow: 5,
 	slidesToScroll: 5,
+	className: 'row_posters',
+	centerPadding: 0,
+	lazyLoad: true,
 };
 
 export function truncate(str, n) {

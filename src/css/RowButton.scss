@@ -1,5 +1,5 @@
 .row-button {
-	background: rgba(20, 20, 20, 0.5);
+	background: rgba(17, 17, 17, 0.5);
 	display: flex;
 	position: absolute;
 	top: 0;
@@ -7,14 +7,20 @@
 	border: 0;
 	width: 4%;
 	text-align: center;
+	margin: 0px 0 0px;
 	z-index: 4;
-	justify-content: center;
-	padding: 65px 0 30px;
-	cursor: pointer;
-	&-left {
-		left: 0px;
+	justify-content: space-around;
+	align-items: center;
+	opacity: 0;
+	&:hover {
+		opacity: 1;
+		transition-duration: 300ms;
 	}
-	&-right {
+	cursor: pointer;
+	&--left {
+		left: 0;
+	}
+	&--right {
 		right: 0;
 	}
 	span {

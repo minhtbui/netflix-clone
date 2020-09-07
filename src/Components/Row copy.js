@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
-import { img_url } from './requests';
-import YouTube from 'react-youtube';
-import movieTrailer from 'movie-trailer';
+import { img_url, reqType, yearRelease } from './requests';
+import PosterInfo from './PosterInfo';
 
 function Row({ title, fetchURL, isLargePoster }) {
 	const [movies, setMovies] = useState([]); // state for movies
-	const [trailerID, setTrailerUrl] = useState(''); // state for trailers
-
+	const [trailerID, setTrailerID] = useState(''); // state for trailers
+	const [movieInfo, setMovieInfo] = useState('');
+	const [isActive, setActive] = useState(false);
 	//* update state after render DOM on a specific condition by snippet of code (fetch url)
 	useEffect(() => {
 		async function fetchData() {
@@ -20,45 +20,41 @@ function Row({ title, fetchURL, isLargePoster }) {
 		//* if [fetchURL], useEffect Hook will keep rerendering to update
 	}, [fetchURL]);
 
-	// react-youtube template for opts
-	const opts = {
-		height: '340',
-		width: '60%',
-		playerVars: {
-			// https://developers.google.com/youtube/player_parameters
-			autoplay: 1, //enable auto play
-			controls: 0,
-			disablekb: 1, //disable keyboard controls
-			iv_load_policy: 3, //disable annotation
-			rel: 0, // disable related videos
-			modestbranding: 1, //youtube logo
-		},
-	};
-
-	// handle click on movie poster
 	const handleClick = (movie) => {
-		if (trailerID) {
-			setTrailerUrl('');
-		} else {
-			//* movieTrailer module from npm packet search on Youtube by the name of poster
-			//* if not found, return empty as ''
-			movieTrailer(
-				movie?.title ||
-					movie?.original_title ||
-					movie?.name ||
-					movie?.original_name ||
+		(isActive && movie?.title === movieInfo.title) ||
+		(isActive && movie?.name === movieInfo.title)
+			? setActive(false)
+			: setActive(true);
+
+		setTrailerID(''); // clear trailerID state
+		setMovieInfo(''); // clear MovieInfo state
+		// get trailer id API by matching type movie/tv series
+		async function fetchVideo() {
+			if (fetchURL.match('movie')) {
+				const request = await axios.get(reqType('movie', movie.id));
+				setTrailerID(request.data.results[0].key);
+			} else if (fetchURL.match('tv')) {
+				const request = await axios.get(reqType('tv', movie.id));
+				setTrailerID(request.data.results[0]?.key);
+			}
+		}
+		fetchVideo();
+		getInfo(movie);
+	};
+	const getInfo = (movie) => {
+		if (movie) {
+			const desc = {
+				title: movie?.title || movie?.name || '',
+				year:
+					yearRelease(movie.first_air_date) ||
+					yearRelease(movie.release_date) ||
 					'',
-			)
-				.then((url) => {
-					//* URLSearchParams - Returns an array of key, value pairs for every entry in the search params.
-					// https://www.youtube.com/watch?v=ewDSeyWve8M
-					const trailerID = new URLSearchParams(new URL(url).search);
-					setTrailerUrl(trailerID.get('v'));
-				})
-				.catch((error) => console.log(error));
+				desc: movie?.overview || '',
+				poster: movie?.backdrop_path || '',
+			};
+			setMovieInfo(desc);
 		}
 	};
-
 	return (
 		<div className='row'>
 			<h3 className='row_header'>{title}</h3>
@@ -77,9 +73,16 @@ function Row({ title, fetchURL, isLargePoster }) {
 					/>
 				))}
 			</div>
-
-			{trailerID && (
-				<YouTube videoId={trailerID} opts={opts} className='poster_info' />
+			{isActive && (
+				<PosterInfo
+					title={movieInfo.title}
+					year={movieInfo.year}
+					desc={movieInfo.desc}
+					creator='Minh Tu Bui 😎'
+					backdrop={movieInfo.poster}
+					trailerID={trailerID}
+					isActive
+				/>
 			)}
 		</div>
 	);
