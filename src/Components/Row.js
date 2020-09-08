@@ -10,10 +10,7 @@ function Row({ title, fetchURL, isLargePoster }) {
 	const [movieInfo, setMovieInfo] = useState(''); // state for movie
 	const [trailerID, setTrailerID] = useState(''); // state for trailers
 	const [isShow, setShow] = useState(false); // state for displaying moive info
-
-	const [slideState, setSlide] = useState({
-		currentIndex: 0,
-	});
+	const [refs, setRefs] = useState('');
 
 	//* update state after render DOM on a specific condition by snippet of code (fetch url)
 	useEffect(() => {
@@ -70,32 +67,17 @@ function Row({ title, fetchURL, isLargePoster }) {
 		}
 	};
 
-	const prevSlide = () => {
-		let index = slideState.currentIndex;
-		let length = movies.length;
-		setSlide({
-			currentIndex: index < 0 ? length - 1 : index - 4,
-		});
-		console.log();
-	};
-
-	const nextSlide = () => {
-		let index = slideState.currentIndex;
-		let length = movies.length;
-		setSlide({
-			currentIndex: index >= length ? 0 : index + 4,
-		});
-	};
-
 	return (
 		<div className='row'>
 			<h3 className='row_header'>{title}</h3>
-			<div className='row_posters'>
-				{movies.map((movie, index) => (
+			<div
+				className='row_posters'
+				ref={(el) => {
+					setRefs(el);
+				}}>
+				{movies.map((movie) => (
 					<Poster
 						key={movie.id}
-						index={index + 1}
-						activeIndex={slideState.currentIndex}
 						fetchURL={fetchURL}
 						isLargePoster={isLargePoster}
 						movie={movie}
@@ -104,9 +86,15 @@ function Row({ title, fetchURL, isLargePoster }) {
 				))}
 			</div>
 
-			<RowButton direction='left' onClick={() => prevSlide()} />
+			<RowButton
+				direction='left'
+				onClick={() => (refs.scrollLeft -= refs.clientWidth / 1.05)}
+			/>
 
-			<RowButton direction='right' onClick={() => nextSlide()} />
+			<RowButton
+				direction='right'
+				onClick={() => (refs.scrollLeft += refs.clientWidth / 1.05)}
+			/>
 
 			<div className='row_posters--info'>
 				{isShow && (

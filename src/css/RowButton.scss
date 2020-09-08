@@ -7,14 +7,14 @@
 	border: 0;
 	width: 4%;
 	text-align: center;
-	margin: 0px 0 0px;
+	margin: 30px 0 0px;
 	z-index: 4;
 	justify-content: space-around;
 	align-items: center;
 	opacity: 0;
 	&:hover {
 		opacity: 1;
-		transition-duration: 300ms;
+		transition: 300ms ease-out;
 	}
 	cursor: pointer;
 	&--left {
@@ -24,8 +24,13 @@
 		right: 0;
 	}
 	span {
+		&:hover {
+			opacity: 1;
+			transition: 300ms ease-in-out;
+		}
 		height: auto;
 		align-self: center;
 		font-size: 4vw;
+		opacity: 0.5;
 	}
 }

@@ -1,13 +1,9 @@
 import React from 'react';
 import { img_url } from './requests';
 
-function Poster({ isLargePoster, movie, onClick, index, activeIndex }) {
-	console.log(index, activeIndex);
+function Poster({ isLargePoster, movie, onClick }) {
 	return (
-		<div
-			className={`poster ${(isLargePoster && 'poster--large') || ''} ${
-				index !== activeIndex ? 'inActive' : 'Active'
-			}`}>
+		<div className={`poster ${(isLargePoster && 'poster--large') || ''} `}>
 			<img
 				key={movie.id}
 				src={`${img_url}${
@@ -17,6 +13,7 @@ function Poster({ isLargePoster, movie, onClick, index, activeIndex }) {
 				}`}
 				alt={movie.title}
 			/>
+
 			<span onClick={onClick}></span>
 		</div>
 	);

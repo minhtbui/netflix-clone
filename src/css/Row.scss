@@ -15,8 +15,9 @@
 	flex-direction: row;
 	overflow-y: hidden;
 	overflow-x: scroll;
-	padding: 30px 0px 30px 0px;
+	padding: 30px 0px 30px 55px;
 	z-index: 2;
+	scroll-behavior: smooth;
 
 	&:hover {
 		.poster {
@@ -33,13 +34,12 @@
 	//****** POSTER *******//
 	.poster {
 		display: flex;
-		overflow: hidden;
 		flex: 0 0 19%;
 		width: 100%;
 		max-height: 125px;
 		padding: 0 2px;
-		transition: transform 500ms;
-		transition-delay: 0ms;
+		transition: transform 500ms ease-out;
+		transition-delay: 100ms;
 		z-index: 3;
 
 		&:hover {
@@ -81,5 +81,13 @@
 		> img {
 			width: 100%;
 		}
+		// &.Active {
+		// 	display: flex;
+		// 	transform: translate3d(0px, 0px, 0px);
+		// }
+		// &.inActive {
+		// 	display: none;
+		// 	transform: translate3d(0px, 0px, 0px);
+		// }
 	}
 }
